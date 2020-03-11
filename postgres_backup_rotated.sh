@@ -1,4 +1,4 @@
-[root@lxtelelavoro ~]# cat /usr/local/scripts/pg_backup_rotated.sh
+# /usr/local/scripts/pg_backup_rotated.sh
 #!/bin/bash
 
 # postgres_backup.config should be in the same dir
