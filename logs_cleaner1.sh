@@ -12,7 +12,7 @@ then
 find $1 -maxdepth 1 -type f -mtime +370 | while read filename ; do fuser -s $filename || rm -f $filename ; done
 
 # compress to xz 
-find $1 -type f | while read filename ; do fuser -s $filename || xz -9fz $filename ; done
+find $1 -maxdepth 1 -type f \( ! -name "*.xz" \) | while read filename ; do fuser -s $filename || xz -9fz $filename ; done
 
 else
       echo "\$1 should be an existing path"
