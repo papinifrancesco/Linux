@@ -7,11 +7,11 @@ if [ -d "$1" ]
 
 then
 # remove the old files but always check first that are not opened by a process
-find $1 -maxdepth 1 -type f -mtime +$2 | while read filename ; do fuser -s $filename || rm -f $filename ; done
+find $1 -maxdepth 1 -type f -mtime +$2 | while read filename ; do /sbin/fuser -s $filename || rm -f $filename ; done
 
 # compress to xz only a file what is not a xz archive already
 # xz is smart enough to do that check itself but we'd waste time
-find $1 -maxdepth 1 -type f \( ! -name "*.?z" \) | while read filename ; do fuser -s $filename || xz -9fz $filename ; done
+find $1 -maxdepth 1 -type f \( ! -name "*.?z" \) | while read filename ; do /sbin/fuser -s $filename || xz -9fz $filename ; done
 
 # if the path passed as an argument does not exist
 else
