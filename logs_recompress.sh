@@ -1,6 +1,7 @@
 #!/bin/bash
-cd /var/log/opensso/opensso-debug/history/
+cd $1
 for filename in ./*.gz; do
     gzip -d $filename
-    xz -9fz *.log
+    decompressed=${filename%.gz}
+    xz -9fz $decompressed
 done
