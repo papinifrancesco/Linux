@@ -6,6 +6,8 @@
 if [ -d "$1" ]
 
 then
+# remove the 0 bytes files but always check first that are not opened by a process
+find $1 -maxdepth 1 -type f -size 0 | while read filename ; do /sbin/fuser -s $filename || rm -f $filename ; done
 # remove the old files but always check first that are not opened by a process
 find $1 -maxdepth 1 -type f -mtime +$2 | while read filename ; do /sbin/fuser -s $filename || rm -f $filename ; done
 
