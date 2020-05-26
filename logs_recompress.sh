@@ -14,3 +14,4 @@ for filename in ./*.gz; do
     xz -9fz $decompressed
 done
 cd -
+fi
