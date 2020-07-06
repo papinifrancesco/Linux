@@ -1,3 +1,4 @@
+# 202007061421
 # put the file in /usr/local/scripts (or whre you want) and define a crontab like as:
 #                                                  FOLDER        DAYS
 # 0 1 * * * /usr/local/scripts/logs_cleaner.sh /opt/tomcat/logs/ 370 > /dev/null 2>&1
