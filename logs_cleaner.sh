@@ -1,4 +1,4 @@
-# 202007061421
+# 202011031700
 # put the file in /usr/local/scripts (or whre you want) and define a crontab like as:
 #                                                  FOLDER        DAYS
 # 0 1 * * * /usr/local/scripts/logs_cleaner.sh /opt/tomcat/logs/ 370 > /dev/null 2>&1
@@ -15,6 +15,8 @@ find $1 -maxdepth 1 -type f -mtime +$2 | while read filename ; do /sbin/fuser -s
 # compress to xz only a file what is not a xz archive already
 # xz is smart enough to do that check itself but we'd waste time
 find $1 -maxdepth 1 -type f \( ! -name "*.?z" \) | while read filename ; do /sbin/fuser -s $filename || xz -9fz $filename ; done
+
+mv $1/*.xz $1/history/
 
 # if the path passed as an argument does not exist
 else
