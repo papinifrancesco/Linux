@@ -1,5 +1,5 @@
-# 202011181117
-# put the file in /usr/local/scripts (or whre you want) and define a crontab like as:
+# 202011181119
+# put the file in /usr/local/scripts (or where you want) and define a crontab like as:
 #                                                  FOLDER        DAYS  ARCHIVE FOLDER
 # 0 1 * * * /usr/local/scripts/logs_cleaner.sh /opt/tomcat/logs  370   history        > /dev/null 2>&1
 
