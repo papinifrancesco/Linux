@@ -24,7 +24,7 @@ done
 
 if [ -z $CONFIG_FILE_PATH ] ; then
         SCRIPTPATH=$(cd ${0%/*} && pwd -P)
-        CONFIG_FILE_PATH="${SCRIPTPATH}/pg_backup.config"
+        CONFIG_FILE_PATH="${SCRIPTPATH}/postgres_backup.config"
 fi
 
 if [ ! -r ${CONFIG_FILE_PATH} ] ; then
