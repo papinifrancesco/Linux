@@ -3,7 +3,7 @@
 
 # postgres_backup.config should be in the same dir
 # crontab -e -u postgres
-# 59 23 * * * cd /usr/local/scripts/ && ./postgres_backup_rotated.sh > /tmp/postgres_backup_rotated.log
+# 59 23 * * * cd /usr/local/scripts/ && ./postgres_backup_rotated_local.sh > /tmp/postgres_backup_rotated.log
 
 ###########################
 ####### LOAD CONFIG #######
