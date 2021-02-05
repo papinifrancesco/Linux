@@ -1,7 +1,8 @@
 # CentOS-Base.repo
 #
 # Modified repo for an end-of-life OS version
-#
+# yum clean all
+# before anything else
 
 [base]
 name=CentOS-$releasever - Base
