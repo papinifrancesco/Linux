@@ -4,7 +4,7 @@
 # goal: to have list of not expired CAs , ready to be used by httpd,
 # with comments before each certificate, example:
 
-# certificate CN
+# certificate subject
 # -----BEGIN CERTIFICATE-----
 # [data]
 # -----END CERTIFICATE-----BEGIN
@@ -25,14 +25,20 @@ rm -f "$CA.xml"
 
 csplit -s -z -f cert- "$CA_PEM" '/-----BEGIN CERTIFICATE-----/' '{*}'
 
-for filename in ./cert-* ; do echo "$filename" ; openssl x509 -checkend 1 -in "$filename"
-
+for filename in ./cert-* ; do openssl x509 -checkend 1 -in "$filename"
 
 if [ $? -eq 1 ]; then
   rm -f "$filename"
 fi
 
+openssl x509 -subject -in "$filename" -out "$filename.pem"
+
+rm -f "$filename"
 
 done
 
-# for i in ./cert-* ; do fold -w 64 "$i" > tmpfile; mv tmpfile "$i"; done
+cat cert-*.pem > ca_abilitate.pem
+
+sed -i 's/subject=/\n# /g' ca_abilitate.pem
+
+rm -f cert-*.pem CA.pem CA.xml
