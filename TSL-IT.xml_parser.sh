@@ -19,9 +19,9 @@ CA_XML='CA.xml'
 CA_PEM='CA.pem'
 
 wget --tries=2 -O CA.xml ${XML_CERTS}
-# TSL-IT.xml now is only one line long so we add e return value before start tag and after tag (X509Certificate)
+# TSL-IT.xml now is only one line long so we add a return value before start tag and after tag (X509Certificate)
 for i in $(sed -e 's/<X509Certificate/\n<X509Certificate/g' -e s'#</X509Certificate>#</X509Certificate>\n#g' "$CA_XML" | grep '<X509Certificate'); do
-  echo -e "-----BEGIN CERTIFICATE-----"
+  echo -e "-----BEGIN CERTIFICATE-----"o
   echo "$i"| sed -e 's/<\/*X509Certificate>//g'| openssl base64 -d -A| openssl base64
   echo -e "-----END CERTIFICATE-----"
 done > "$CA_PEM"
