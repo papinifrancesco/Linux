@@ -83,7 +83,7 @@ grep \# ca_abilitate.pem > actual_CA_list.txt
 # not really but I liked it
 sort expired_CA_preliminary_list.txt > expired_CA_preliminary_list_sorted.txt
 sort actual_CA_list.txt > actual_CA_list_sorted.txt
-
+dos2unix actual_CA_list_sorted.txt
 
 # check if the expired CAs have been replaced with new certificates:
 # I want to see only the ones that have expired and never renewed
