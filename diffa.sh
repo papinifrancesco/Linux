@@ -16,3 +16,5 @@ sort /tmp/temp2.txt | uniq > /tmp/temp4.txt
 
 # compare
 diff -y -W220 /tmp/temp3.txt /tmp/temp4.txt
+
+rm -f /tmp/temp3.txt /tmp/temp4.txt
