@@ -8,6 +8,9 @@
 # ready to be used by httpd, with identifying distinguished name
 # before each certificate
 
+# do the cleanings
+rm -f cert-* CA* expired_CA_* actual_CA_* *.jks
+
 
 XML_CERTS='https://eidas.agid.gov.it/TL/TSL-IT.xml'
 CA_PEM='CA.pem'
@@ -64,6 +67,10 @@ echo "$comment"|cat - "$filename.pem" > /tmp/out && mv /tmp/out "$filename.pem"
 # add a newline to the cert
 echo "" >> "$filename.pem"
 
+# import into a JKS trustore
+ALIAS=$(echo $comment | sed 's/# //g')
+keytool -import -file "$filename" -alias "$ALIAS" -keystore ca_abilitate.jks -storepass 123456 -noprompt
+
 # remove the old temporary file
 rm -f "$filename"
 
@@ -71,9 +78,12 @@ fi
 done
 
 
+
 # concatenate all the single file certificates into a one, single, big, file.
 cat cert-*.pem > ca_abilitate.pem
 
+# create a PKCS7 file (optional)
+openssl crl2pkcs7 -nocrl -certfile ca_abilitate.pem -out ca_abilitate.p7b
 
 # extract just a list of the actual, good, IdV, CAs
 grep \# ca_abilitate.pem > actual_CA_list.txt
@@ -85,7 +95,6 @@ sort expired_CA_preliminary_list.txt > expired_CA_preliminary_list_sorted.txt
 sort actual_CA_list.txt > actual_CA_list_sorted.txt
 sed -i 's/\r$//' ca_abilitate.pem
 
-
 # check if the expired CAs have been replaced with new certificates:
 # I want to see only the ones that have expired and never renewed
 echo "Expired, not renewed CAs"
@@ -96,7 +105,3 @@ if [ $? -eq 1 ]; then
   echo "$line"
 fi
 done < expired_CA_preliminary_list_sorted.txt ; 
-
-
-# do the cleanings
-rm -f cert-* CA* expired_CA_* actual_CA_*
