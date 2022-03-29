@@ -10,7 +10,7 @@ sed '/^#/ d' < "$1" > /tmp/temp1.txt
 sed '/^#/ d' < "$2" > /tmp/temp2.txt
 
 
-# sort and remove duplicates
+# sort duplicates , investigate the file in case of duplicates!!
 sort /tmp/temp1.txt | uniq > /tmp/temp3.txt
 sort /tmp/temp2.txt | uniq > /tmp/temp4.txt
 
